@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Ninja = require("../models/ninja")
 
 // get a list of ninjas from the db
 router.get('/ninjas', function(req, res){
@@ -8,8 +9,10 @@ router.get('/ninjas', function(req, res){
 
 // add a new ninja to the db
 router.post('/ninjas', function(req, res){
-  // request is taking from bodyParser
-  console.log(req.body)
+  // request is taking from bodyParser json, being sent in the body (from postman atm)
+  // from the model/schema
+  // .create mongoose funct, creates a new instance and saves it
+  Ninja.create(req.body)
   res.send({
     type: 'POST',
     name: req.body.name,

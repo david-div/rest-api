@@ -1,8 +1,15 @@
 const express = require('express');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 //set up express app
 const app = express();
+
+// connect to mongodb, will create a new db ninjago
+mongoose.connect('mongodb://localhost/ninjago');
+
+// setting mongooses promise to the global promise as it's deprecated
+mongoose.Promise = global.Promise
 
 // only receiving json format
 // above the routes so routes is then able to use it
