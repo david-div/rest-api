@@ -17,3 +17,10 @@ const NinjaSchema = new Schema({
   }
   // add in geo location
 });
+
+// creating a model
+// Ninja model will represent the ninja collection
+// and the schema showing how the data is to be formatted
+const Ninja = mongoose.model('ninja', NinjaSchema);
+
+module.exports = Ninja;
