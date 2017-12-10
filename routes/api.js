@@ -21,3 +21,8 @@ router.put('/ninjas/:id', function(req, res){
 router.delete('/ninjas/:id', function(req, res){
   res.send({type: 'DELETE'});
 });
+
+
+// all of the routes have been mounted onto router
+// so only need to export the one module
+module.exports = router;
