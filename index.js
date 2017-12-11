@@ -11,6 +11,9 @@ mongoose.connect('mongodb://localhost/ninjago');
 // setting mongooses promise to the global promise as it's deprecated
 mongoose.Promise = global.Promise
 
+// index view in public folder
+app.use(express.static("public"));
+
 // only receiving json format
 // above the routes so routes is then able to use it
 // all app.use middleware in order
