@@ -18,5 +18,67 @@
       <script src="https://unpkg.com/react@15/dist/react.js"></script>
       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
 
+      <!-- Create react componet -->
+      <!-- Being transformed by babel in to vjs so the browser can read it -->
+      <script type="text/babel">
+
+      var Ninjas = React.createClass({
+        // setting the initial State
+        getInitialState: function(){
+          return({
+            // ninjas starts as an empty array before the button is clicked
+            ninjas: []
+          });
+        }
+
+        // render is the only method that is actually needed
+        render:function(){
+          var ninjas = this.state.ninjas;
+          ninjas = ninjas.map(function(ninja, index){
+            return(
+              <li key={index}>
+                <span className={ninja.obj.available}></span>
+                <span className="name">{ninja.obj.name}</span>
+                <span className="rank">{ninja.obj.rank}</span>
+                <span className="dist">{Math.floor(ninja..dis / 1000)}</span>
+              </li>
+            )
+          })
+          return(
+            <div id="ninja-container">
+              <form id="search" onSubmit={this.handleSubmit}>
+                <label>"Enter your latitude:"</label>
+                <input type="text" ref="lat" placeholder="latitude" required />
+                <label>"Enter your longitude:"</label>
+                <input type="text" ref="lng" placeholder="longitude" required />
+                <input type="submit" value="Find Ninjas" />
+              </form>
+
+              <ul></ul>
+
+
+            </div>
+          );
+        }, // the event of onSubmit
+        handleSubmitSubmit: function(e){
+          // as we want to set our own behaviour
+          e.preventDefault();
+          // value the user inputs
+          var lng = this.refs.lng.value;
+          var lat = this.refs.lat.value;
+
+          fetch('/api/ninjas?lng' + lng + '&lat=' lat).then(function(data){
+            return data.json();
+            // altering and setting the state of the component
+          }).then(json => {
+            this.setState({
+              ninjas: json
+            });
+          })
+        }
+      })
+
+      </script>
+
   </body>
 </html>
