@@ -28,7 +28,12 @@ router.put('/ninjas/:id', function(req, res, next){
 
 // delete a ninja from the db
 router.delete('/ninjas/:id', function(req, res, next){
-  res.send({type: 'DELETE'});
+  // lookingn in the db via mongoose, for the id (from the url)
+  // .then, once complete
+  Ninja.findByIdAndRemove({_id: req.params.id}).then(function(ninja){
+    // once it's found the ninja from the db, send it
+    res.send(ninja)
+  });
 });
 
 
