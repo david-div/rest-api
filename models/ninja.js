@@ -1,18 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-"geometry": {
-  "type": "Point",
-  "coordinates": [125.6, 10.1]
-}
-
 // create geolocation schema
 
 const GeoSchema = new Schema({
   type: {
     type: String,
     default: "Point"
-  };
+  },
   coordinates: {
     type: [Number],
     // type of map we want to use, 'sphere' takes the 3d of the world into consideration

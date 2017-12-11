@@ -4,7 +4,19 @@ const Ninja = require("../models/ninja")
 
 // get a list of ninjas from the db
 router.get('/ninjas', function(req, res, next){
-  res.send({type: 'GET'});
+  // // finding all the ninjas
+  // Ninja.find({}).then(function(ninjas){
+  //   res.send(ninjas);
+  // })
+  // geoNear, inbuild mongoose function
+  Ninja.geoNear(
+    // accessing the query string req.query, which should be number
+    {type: 'Point', coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)]},
+    {maxDistance: 100000, spherical: true}) // meters
+    .then(function(ninjas){
+      // once received the ninjas, send the ninjas
+      res.send(ninjas);
+    })
 });
 
 // add a new ninja to the db
