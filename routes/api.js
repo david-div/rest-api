@@ -23,7 +23,12 @@ router.post('/ninjas', function(req, res, next){
 // update a ninja in the db
 // :id is going to be a varialbe name
 router.put('/ninjas/:id', function(req, res, next){
-  res.send({type: 'PUT'});
+  Ninja.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
+    // having to find once updated (otherwise it's the old data)
+    Ninja.findOne({_id: req.params.id}).then(function(ninja){
+          res.send(ninja);
+    })
+  })
 });
 
 // delete a ninja from the db
