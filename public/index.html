@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <title>Ninjago</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="/styles.css" rel="stylesheet" type="text/css" />
+    <link href="/styles.css" rel="stylesheet" />
   </head>
   <body>
+
     <h1 class="title">Ninjago - a Ninja REST API</h1>
     <div id="homepage">
       <h1>Hire a ninja in your area</h1>
@@ -29,10 +30,10 @@
             // ninjas starts as an empty array before the button is clicked
             ninjas: []
           });
-        }
+        },
 
         // render is the only method that is actually needed
-        render:function(){
+        render: function(){
           var ninjas = this.state.ninjas;
           ninjas = ninjas.map(function(ninja, index){
             return(
@@ -40,43 +41,48 @@
                 <span className={ninja.obj.available}></span>
                 <span className="name">{ninja.obj.name}</span>
                 <span className="rank">{ninja.obj.rank}</span>
-                <span className="dist">{Math.floor(ninja..dis / 1000)}</span>
+                <span className="dist">{Math.floor(ninja.dis / 1000)}km</span>
               </li>
-            )
-          })
+            );
+          });
           return(
             <div id="ninja-container">
               <form id="search" onSubmit={this.handleSubmit}>
-                <label>"Enter your latitude:"</label>
+                <label>Enter your latitude:</label>
                 <input type="text" ref="lat" placeholder="latitude" required />
-                <label>"Enter your longitude:"</label>
+                <label>Enter your longitude:</label>
                 <input type="text" ref="lng" placeholder="longitude" required />
                 <input type="submit" value="Find Ninjas" />
               </form>
 
-              <ul></ul>
+              <ul>{ninjas}</ul>
 
 
             </div>
           );
         }, // the event of onSubmit
-        handleSubmitSubmit: function(e){
+        handleSubmit: function(e){
           // as we want to set our own behaviour
           e.preventDefault();
           // value the user inputs
           var lng = this.refs.lng.value;
           var lat = this.refs.lat.value;
 
-          fetch('/api/ninjas?lng' + lng + '&lat=' lat).then(function(data){
+          fetch('/api/ninjas?lng=' + lng + '&lat=' + lat).then(function(data){
             return data.json();
             // altering and setting the state of the component
           }).then(json => {
             this.setState({
               ninjas: json
             });
+            console.log(json);
           })
         }
       })
+
+      // Ninjas being the component name
+
+      ReactDOM.render(<Ninjas />, document.getElementById('ninjas'));
 
       </script>
 
