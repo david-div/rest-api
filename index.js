@@ -13,12 +13,21 @@ mongoose.Promise = global.Promise
 
 // only receiving json format
 // above the routes so routes is then able to use it
+// all app.use middleware in order
 app.use(bodyParser.json());
 
 // using the routes from the api dir
 // all routes are going to start /api
 // initialise the routes
 app.use('/api',require('./routes/api'));
+
+// error handling middleware
+app.use(function(err, req, res, next){
+  // console.log(err)
+  // status of page updates from 200 to 422
+  // err.message, from whats been sent as didn't load
+  res.status(422).send({ error: err.message})
+});
 
 //listening for requests
 // either the set up variable or port 4000
